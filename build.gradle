@@ -1,0 +1,33 @@
+plugins {
+	id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+apply plugin: 'java'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// todo: switch to Maven dependency as soon as the library is released/published
+	implementation fileTree(dir: '../hash4j/build/libs', include: ['hash4j-*.jar'])
+
+	implementation 'commons-io:commons-io:2.11.0'
+
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+	testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+wrapper {
+	gradleVersion = '6.6.1'
+}
+
+task getDeps(type: Copy) {
+	from sourceSets.main.runtimeClasspath
+	into 'build/runtime/'
+}

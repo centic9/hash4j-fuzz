@@ -1,0 +1,96 @@
+# valid ones
+metric.key 1.1
+metric.key gauge,1.4
+metric.key count,1.4
+metric.key distribution,le_0=1
+metric.key,dimension.key=dimension\ value 2.1
+metric.key,dimension.key="dimension value" 2.2
+metric.key,dimension.key=dimension\ value gauge,3.1
+metric.key,dimension.key="dimension value" gauge,3.2
+metric.key,dimension.key=dimension\ value count,3.1
+metric.key,dimension.key="dimension value" count,3.2
+metric.key,dimension.key=dimension\ value distribution,le_0=1
+metric.key,dimension.key="dimension value" distribution,le_0=1
+metric.key 1.1 1000
+metric.key gauge,1.4 1000
+metric.key count,1.4 1000
+metric.key distribution,le_0=1 1000
+metric.key,dimension.key=dimension\ value 2.1e1 1000
+metric.key,dimension.key="dimension value" 2.0e2
+metric.key,dimension.key=dimension\ value gauge,3.4e1 1000
+metric.key,dimension.key="dimension value" gauge,3.6e2 1000
+metric.key,dimension.key=dimension\ value count,3.4e1 1000
+metric.key,dimension.key="dimension value" count,3.6e2 1000
+metric.key,dimension.key=dimension\ value distribution,le_0=1 1000
+metric.key,dimension.key="dimension value" distribution,le_0=1 1000
+a,b=c,d=e 1
+a,b=c,d=e 1 1000
+a 0
+a .0e3
+a count,0
+a distribution,0
+a gauge,0 1
+a count,k=0
+a,k=v 0 1
+a 010.01e1
+a 0.e3
+aaa,b=b 123 bbb,d=d 123 1615797536000
+aaa,b=b 123 bbb,d=d 123 1615797536000
+aaa,b=b 123 1615797536000bbb,d=d 123 1615797536000
+aaa,b=b 123 1615797536000 bbb,d=d 123 1615797536000
+aaa,b=b 123 1615797536000 bbb,d=d 123 1615797536000
+aaa,b=b 123 1615797536000,d=d 123 1615797536000
+aaa,b=b 123 1615797536000, d=d 123 1615797536000
+aaa,b=b 123 1615797536000, d=d 123 161579753600
+mateus count dt.meta.description="My desc"
+humidity,room=5.30 78.9
+humidity,room=NaN 78.9
+temperature,room=5.30 gauge,min=17.1,max=17.3,sum=34.4,count=2
+utilization,room=5.30 gauge,5 1588566479205
+hardware.CPU.clock,a.blank=" ",b.blank=\  2.7
+hardware.DISK.freespace,drive=\\c: 50
+interface.packets.received,if=eth0 count,delta=10
+gaugemetric gauge,min=1,max=3,sum=4,count=12
+gaugemetric gauge,min=1,max=3,sum=4,count=2
+gaugemetric gauge,min=0,max=0,sum=0,count=0MetricType
+
+# metadata
+#test count dt.meta.unit=Byte,dt.meta.latency=123
+#testmetric1.count count dt.meta.displayName="Pretty metric"
+#testmetric2.count count dt.meta.description="Short description"
+#testmetric3 gauge dt.meta.unit=Byte
+#testmetric4 gauge dt.meta.displayName="Pretty metric",dt.meta.description="Short description",dt.meta.unit=Byte
+
+# invalid ones
+a ,1
+a count,c.d=e 1
+anyMetric gauge,min=1,max=3,sum=4,count=2
+mateus count dt.meta.description=\"My desc\"
+#testmetric
+#testmetric dt.meta.xxx=
+mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm 1.1
+metric.key,a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b a=b 1000
+metric.key,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b,a=b 1000
+metric.keyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,dimension.key="dimension value" distribution,le_0=1 1000
+metric.key,dimension.keyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa="dimension value" 2.0e2
+metric.key,dimension.key=valueaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 2.0e2
+metric.key gauge,-1.4
+gaugemetric gauge,min=12,max=32,sum=4,count=12
+gaugemetric gauge,min=12,max=32,sum=4,count=12
+gaugemaxlowerthanmin gauge,min=100,max=32,sum=4,count=12
+gaugemetric gauge,min=NaN,max=3,sum=4,count=12
+gaugemetric gauge,min=1,max=NaN,sum=4,count=12
+gaugemetric gauge,min=1,max=3,sum=NaN,count=12
+gaugemetric gauge,min=1,max=3,sum=4,count=NaN
+gaugemetric gauge,min=1,max=3,sum=4,count=0
+gaugemetric gauge,min=1,max=3,sum=4,count=-1
+gaugemetric gauge,min=1,max=3,sum=4,count=-100
+gaugemetric gauge,min=1,max=3,sum=1.7976931348623157e+308,count=100
+gaugemetric gauge,min=1,max=3,sum=1.7976931348623157e+309,count=100
+gaugemetric gauge,min=1,max=3,sum=1.7976931348623158e+309,count=100
+humidity,room=5.30 NaN
+metric.key distribution,le_0=1 NaN
+metric.key distribution,le_0=NaN 1000
+metric.key invalid,le_0=1 1000
+#testmetric1.count count dt.meta.displayName="Pretty metric
+metric.key,dimension.key="dimension value 2.0e2
