@@ -19,7 +19,7 @@ class FuzzTest {
 
 	@Test
 	public void testLine() {
-		Fuzz.fuzzerTestOneInput("metric.key,dimension.key=dimension\\ value 2.1".getBytes(StandardCharsets.UTF_8));
+		Fuzz.fuzzerTestOneInput("some text".getBytes(StandardCharsets.UTF_8));
 	}
 
 	@Test

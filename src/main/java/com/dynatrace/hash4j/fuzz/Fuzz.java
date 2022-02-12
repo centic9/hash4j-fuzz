@@ -4,10 +4,10 @@ import com.dynatrace.hash4j.hashing.Hashing;
 
 
 /**
- * This class provides a simple target for fuzzing the schemaless
- * metric parser with Jazzer
+ * This class provides a simple target for fuzzing the hist4j package.
  *
- * It uses DatapointParserFactory.parse() calls to produce the
+ * Currently the library only provides an implementation of Murmur3 which
+ * is tested here.
  */
 public class Fuzz {
 	public static void fuzzerTestOneInput(byte[] input) {
