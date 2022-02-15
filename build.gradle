@@ -9,8 +9,8 @@ repositories {
 }
 
 dependencies {
-	// todo: switch to Maven dependency as soon as the library is released/published
-	implementation fileTree(dir: '../hash4j/build/libs', include: ['hash4j-*.jar'])
+	//implementation fileTree(dir: '../hash4j/build/libs', include: ['hash4j-*.jar'])
+	implementation 'com.dynatrace.hash4j:hash4j:0.1.0'
 
 	implementation 'commons-io:commons-io:2.11.0'
 
