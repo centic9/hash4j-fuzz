@@ -12,5 +12,11 @@ import com.dynatrace.hash4j.hashing.Hashing;
 public class Fuzz {
 	public static void fuzzerTestOneInput(byte[] input) {
 		Hashing.murmur3_128().hashToLong(input, (bytes, hashSink) -> hashSink.putBytes(bytes));
+
+		Hashing.murmur3_32().hashBytesToInt(input);
+
+		Hashing.wyhashFinal3().hashBytesToLong(input);
+
+		Hashing.wyhashFinal3().hashBytesToInt(input);
 	}
 }
