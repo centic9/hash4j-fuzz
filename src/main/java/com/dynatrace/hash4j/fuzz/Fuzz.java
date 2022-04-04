@@ -1,6 +1,6 @@
 package com.dynatrace.hash4j.fuzz;
 
-import com.dynatrace.hash4j.hashing.Hashing;
+import com.dynatrace.hash4j.hashing.*;
 
 
 /**
@@ -11,12 +11,24 @@ import com.dynatrace.hash4j.hashing.Hashing;
  */
 public class Fuzz {
 	public static void fuzzerTestOneInput(byte[] input) {
-		Hashing.murmur3_128().hashToLong(input, (bytes, hashSink) -> hashSink.putBytes(bytes));
+		Hasher128 hasher128 = Hashing.murmur3_128();
+		HashFunnel<byte[]> hashFunnel = (bytes, hashSink) -> hashSink.putBytes(bytes);
+		hasher128.hashToLong(input, hashFunnel);
+		hasher128.hashToLong(input, hashFunnel);
 
-		Hashing.murmur3_32().hashBytesToInt(input);
+		hasher128.hashBytesToInt(input);
+		hasher128.hashBytesToInt(input);
 
-		Hashing.wyhashFinal3().hashBytesToLong(input);
+		Hasher32 hasher32 = Hashing.murmur3_32();
+		hasher32.hashBytesToInt(input);
+		hasher32.hashBytesToInt(input);
 
-		Hashing.wyhashFinal3().hashBytesToInt(input);
+		Hasher64 hasher64Long = Hashing.wyhashFinal3();
+		hasher64Long.hashBytesToLong(input);
+		hasher64Long.hashBytesToLong(input);
+
+		Hasher64 hasher64Int = Hashing.wyhashFinal3();
+		hasher64Int.hashBytesToInt(input);
+		hasher64Int.hashBytesToInt(input);
 	}
 }
