@@ -30,5 +30,13 @@ public class Fuzz {
 		Hasher64 hasher64Int = Hashing.wyhashFinal3();
 		hasher64Int.hashBytesToInt(input);
 		hasher64Int.hashBytesToInt(input);
+
+		Hasher64 komihash64Long = Hashing.komihash4_3();
+		komihash64Long.hashBytesToLong(input);
+		komihash64Long.hashBytesToLong(input);
+
+		Hasher64 komihash64Int = Hashing.komihash4_3();
+		komihash64Int.hashBytesToInt(input);
+		komihash64Int.hashBytesToInt(input);
 	}
 }
