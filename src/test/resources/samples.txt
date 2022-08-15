@@ -94,3 +94,8 @@ metric.key distribution,le_0=NaN 1000
 metric.key invalid,le_0=1 1000
 #testmetric1.count count dt.meta.displayName="Pretty metric
 metric.key,dimension.key="dimension value 2.0e2
+!"§$)=(""%&()Ä"$%?(!?$(!§$13498103489!§%'&689'ÖÄ#äö#ä+ö´¹²¼}[]æſđ€~ŧ\]↓¹“Þ@€¶ŧŋ@³³³³³ħħħħħŋ↓]~~~~~~~Ł¶
+1
+,
+^
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
