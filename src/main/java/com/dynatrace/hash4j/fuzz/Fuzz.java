@@ -2,6 +2,10 @@ package com.dynatrace.hash4j.fuzz;
 
 import com.dynatrace.hash4j.hashing.*;
 
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
+import java.util.OptionalLong;
+
 
 /**
  * This class provides a simple target for fuzzing the hist4j package.
@@ -35,6 +39,7 @@ public class Fuzz {
 		HashFunnel<byte[]> hashFunnel = (bytes, hashSink) -> hashSink.putBytes(bytes);
 		hasher.hashToLong(input, hashFunnel);
 		hasher.hashToLong(input, hashFunnel);
+		hasher.hashToLong(input, hashFunnel);
 
 		hasher.hashBytesToLong(input);
 		hasher.hashBytesToLong(input);
@@ -55,22 +60,36 @@ public class Fuzz {
 		HashStream stream = hasher.hashStream();
 		stream.putBytes(input);
 
+		HashFunnel<byte[]> hashFunnel = (bytes, hashSink) -> hashSink.putBytes(bytes);
+		stream.putNullable(input, hashFunnel);
+
 		if (input.length >= 1) {
 			stream.putByte(input[0]);
 
-			stream.putBoolean((input[0] & 1) == 1);
-			stream.putBooleans(new boolean[] { (input[0] & 1) == 1 });
-			stream.putBooleanArray(new boolean[] { (input[0] & 1) == 1 });
+			boolean b = (input[0] & 1) == 1;
+			stream.putBoolean(b);
+			stream.putBooleans(new boolean[] {b});
+			stream.putBooleanArray(new boolean[] {b});
 
 			stream.putChar((char)input[0]);
 			stream.putChars(new char[] { (char)input[0] });
 			stream.putCharArray(new char[] { (char)input[0] });
+
+			stream.putString(new String(input));
+
+			if (input.length >= 2) {
+				short s = (short) (input[0] + (input[1] << 8));
+				stream.putShort(s);
+				stream.putShorts(new short[] { s });
+				stream.putShortArray(new short[] { s });
+			}
 
 			if (input.length >= 4) {
 				int i = input[0] + (input[1] << 8) + (input[1] << 16) + (input[1] << 24);
 				stream.putInt(i);
 				stream.putInts(new int[] { i });
 				stream.putIntArray(new int[] { i });
+				stream.putOptionalInt(OptionalInt.of(i));
 
 				stream.putFloat(Float.intBitsToFloat(i));
 				stream.putFloats(new float[] { Float.intBitsToFloat(i) });
@@ -84,10 +103,13 @@ public class Fuzz {
 				stream.putLong(l);
 				stream.putLongs(new long[] { l });
 				stream.putLongArray(new long[] { l });
+				stream.putOptionalLong(OptionalLong.of(l));
 
-				stream.putDouble(Double.longBitsToDouble(l));
-				stream.putDoubles(new double[] { Double.longBitsToDouble(l) });
-				stream.putDoubleArray(new double[] { Double.longBitsToDouble(l) });
+				double d = Double.longBitsToDouble(l);
+				stream.putDouble(d);
+				stream.putDoubles(new double[] {d});
+				stream.putDoubleArray(new double[] {d});
+				stream.putOptionalDouble(OptionalDouble.of(d));
 			}
 
 			stream.getAsInt();
