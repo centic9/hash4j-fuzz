@@ -1,6 +1,10 @@
 package com.dynatrace.hash4j.fuzz;
 
 import com.dynatrace.hash4j.hashing.*;
+import com.dynatrace.hash4j.similarity.ElementHashProvider;
+import com.dynatrace.hash4j.similarity.SimilarityHashPolicy;
+import com.dynatrace.hash4j.similarity.SimilarityHasher;
+import com.dynatrace.hash4j.similarity.SimilarityHashing;
 
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
@@ -124,6 +128,25 @@ public class Fuzz {
 				// expected here
 			}
 			stream.getHashBitSize();
+		}
+
+		if (input.length >= 8) {
+			long[] longs = new long[input.length / 8];
+			for (int i = 0; i < input.length / 8; i++) {
+				longs[i] = input[i * 8];
+				longs[i] = ((long) input[i * 8 + 1]) << 8;
+				longs[i] = ((long) input[i * 8 + 2]) << 16;
+				longs[i] = ((long) input[i * 8 + 3]) << 24;
+				longs[i] = ((long) input[i * 8 + 4]) << 32;
+				longs[i] = ((long) input[i * 8 + 5]) << 40;
+				longs[i] = ((long) input[i * 8 + 6]) << 48;
+				longs[i] = ((long) input[i * 8 + 7]) << 56;
+			}
+
+			SimilarityHashPolicy policy =
+					SimilarityHashing.superMinHash(1024, 1);
+			SimilarityHasher simHasher = policy.createHasher();
+			simHasher.compute(ElementHashProvider.ofValues(longs));
 		}
 	}
 }
