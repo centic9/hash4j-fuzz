@@ -147,6 +147,10 @@ public class Fuzz {
 					SimilarityHashing.superMinHash(1024, 1);
 			SimilarityHasher simHasher = policy.createHasher();
 			simHasher.compute(ElementHashProvider.ofValues(longs));
+
+			policy = SimilarityHashing.minHash(1024, 1);
+			simHasher = policy.createHasher();
+			simHasher.compute(ElementHashProvider.ofValues(longs));
 		}
 	}
 }
