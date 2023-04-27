@@ -38,7 +38,7 @@ Unpack the archive:
 
 Invoke the fuzzing:
 
-    ./jazzer --cp=build/libs/hash4j-fuzz-all.jar --instrumentation_includes=com.dynatrace.** --target_class=com.dynatrace.hash4j.fuzz.Fuzz -rss_limit_mb=4096 --jvm_args=-Xss4m corpus
+    ./jazzer --cp=build/libs/hash4j-fuzz-all.jar --instrumentation_includes=com.dynatrace.** --target_class=com.dynatrace.hash4j.fuzz.Fuzz -rss_limit_mb=1024 --jvm_args=-Xss4m corpus
 
 In this mode Jazzer will stop whenever it detects an unexpected exception 
 or crashes.

@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run Fuzzing - hash4j" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value="./gradlew shadowJar &amp;&amp; ./jazzer --cp=build/libs/hash4j-fuzz-all.jar --instrumentation_includes=com.dynatrace.** --target_class=com.dynatrace.hash4j.fuzz.Fuzz -rss_limit_mb=4096 corpus" />
+    <option name="SCRIPT_TEXT" value="./gradlew shadowJar &amp;&amp; ./jazzer --cp=build/libs/hash4j-fuzz-all.jar --instrumentation_includes=com.dynatrace.** --target_class=com.dynatrace.hash4j.fuzz.Fuzz -rss_limit_mb=1024 corpus" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
-    <option name="SCRIPT_PATH" value="./jazzer --cp=build/libs/hash4j-fuzz-all.jar --instrumentation_includes=com.dynatrace.** --target_class=com.dynatrace.hash4j.fuzz.Fuzz -rss_limit_mb=4096 corpus" />
+    <option name="SCRIPT_PATH" value="./jazzer --cp=build/libs/hash4j-fuzz-all.jar --instrumentation_includes=com.dynatrace.** --target_class=com.dynatrace.hash4j.fuzz.Fuzz -rss_limit_mb=1024 corpus" />
     <option name="SCRIPT_OPTIONS" value="" />
     <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
     <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
