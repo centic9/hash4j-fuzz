@@ -1,6 +1,11 @@
 package com.dynatrace.hash4j.fuzz;
 
-import com.dynatrace.hash4j.hashing.*;
+import com.dynatrace.hash4j.hashing.HashFunnel;
+import com.dynatrace.hash4j.hashing.HashStream32;
+import com.dynatrace.hash4j.hashing.Hasher128;
+import com.dynatrace.hash4j.hashing.Hasher32;
+import com.dynatrace.hash4j.hashing.Hasher64;
+import com.dynatrace.hash4j.hashing.Hashing;
 import com.dynatrace.hash4j.similarity.ElementHashProvider;
 import com.dynatrace.hash4j.similarity.SimilarityHashPolicy;
 import com.dynatrace.hash4j.similarity.SimilarityHasher;
@@ -30,6 +35,12 @@ public class Fuzz {
 
 		Hasher32 hasher32 = Hashing.murmur3_32();
 		hash32(hasher32, input);
+
+		Hasher64 wyhashFinal3 = Hashing.wyhashFinal3();
+		hash64(wyhashFinal3, input);
+
+		Hasher64 wyhashFinal4 = Hashing.wyhashFinal4();
+		hash64(wyhashFinal4, input);
 	}
 
 	private static void hash128(Hasher128 hasher, byte[] input) {
@@ -60,8 +71,8 @@ public class Fuzz {
 		hash(hasher, input);
 	}
 
-	private static void hash(Hasher hasher, byte[] input) {
-		HashStream stream = hasher.hashStream();
+	private static void hash(Hasher32 hasher, byte[] input) {
+		HashStream32 stream = hasher.hashStream();
 		stream.putBytes(input);
 
 		HashFunnel<byte[]> hashFunnel = (bytes, hashSink) -> hashSink.putBytes(bytes);
@@ -118,12 +129,7 @@ public class Fuzz {
 
 			stream.getAsInt();
 			try {
-				stream.getAsLong();
-			} catch (UnsupportedOperationException e) {
-				// expected here
-			}
-			try {
-				stream.get();
+				stream.getAsInt();
 			} catch (UnsupportedOperationException e) {
 				// expected here
 			}
