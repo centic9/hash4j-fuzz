@@ -24,17 +24,14 @@ import java.util.OptionalLong;
  */
 public class Fuzz {
 	public static void fuzzerTestOneInput(byte[] input) {
+		Hasher32 hasher32 = Hashing.murmur3_32();
+		hash32(hasher32, input);
+
 		Hasher128 hasher128 = Hashing.murmur3_128();
 		hash128(hasher128, input);
 
-		Hasher64 hasher64Long = Hashing.wyhashFinal3();
-		hash64(hasher64Long, input);
-
 		Hasher64 komihash64Long = Hashing.komihash4_3();
 		hash64(komihash64Long, input);
-
-		Hasher32 hasher32 = Hashing.murmur3_32();
-		hash32(hasher32, input);
 
 		Hasher64 wyhashFinal3 = Hashing.wyhashFinal3();
 		hash64(wyhashFinal3, input);
