@@ -30,8 +30,11 @@ public class Fuzz {
 		Hasher128 hasher128 = Hashing.murmur3_128();
 		hash128(hasher128, input);
 
-		Hasher64 komihash64Long = Hashing.komihash4_3();
-		hash64(komihash64Long, input);
+		Hasher64 komihash4_64Long = Hashing.komihash4_3();
+		hash64(komihash4_64Long, input);
+
+		Hasher64 komihash5_64Long = Hashing.komihash5_0();
+		hash64(komihash5_64Long, input);
 
 		Hasher64 wyhashFinal3 = Hashing.wyhashFinal3();
 		hash64(wyhashFinal3, input);
