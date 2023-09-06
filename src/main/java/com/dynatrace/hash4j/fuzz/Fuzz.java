@@ -41,6 +41,9 @@ public class Fuzz {
 
 		Hasher64 wyhashFinal4 = Hashing.wyhashFinal4();
 		hash64(wyhashFinal4, input);
+
+		Hasher64 farmHash = Hashing.farmHashNa();
+		hash64(farmHash, input);
 	}
 
 	private static void hash128(Hasher128 hasher, byte[] input) {
@@ -155,6 +158,10 @@ public class Fuzz {
 			simHasher.compute(ElementHashProvider.ofValues(longs));
 
 			policy = SimilarityHashing.minHash(1024, 1);
+			simHasher = policy.createHasher();
+			simHasher.compute(ElementHashProvider.ofValues(longs));
+
+			policy = SimilarityHashing.fastSimHash(1024);
 			simHasher = policy.createHasher();
 			simHasher.compute(ElementHashProvider.ofValues(longs));
 		}
