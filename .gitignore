@@ -5,6 +5,7 @@ out/
 
 # the downloaded corpus should not be checked in
 corpus/
+corpusSimHash/
 
 # Jazzer and JaCoCo application files
 /jazzer

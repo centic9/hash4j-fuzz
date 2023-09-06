@@ -25,6 +25,8 @@ into directory `corpus`
     mkdir corpus
     i=0;cat src/test/resources/samples.txt | while IFS='' read data;do echo "$data" > corpus/sample_$i.txt;i=$((i+1));done
 
+    mkdir corpusSimHash
+
 You can add more documents to the corpus to help Jazzer in producing "nearly" 
 proper queries which will improve fuzzing a lot. Slightly broken queries
 seem to be a good seed for fuzzing as well.
@@ -39,6 +41,8 @@ Unpack the archive:
 Invoke the fuzzing:
 
     ./jazzer --cp=build/libs/hash4j-fuzz-all.jar --instrumentation_includes=com.dynatrace.** --target_class=com.dynatrace.hash4j.fuzz.Fuzz -rss_limit_mb=1024 --jvm_args=-Xss4m corpus
+
+    ./jazzer --cp=build/libs/hash4j-fuzz-all.jar --instrumentation_includes=com.dynatrace.** --target_class=com.dynatrace.hash4j.fuzz.SimHashFuzz -rss_limit_mb=1024 --jvm_args=-Xss4m corpusSimHash
 
 In this mode Jazzer will stop whenever it detects an unexpected exception 
 or crashes.

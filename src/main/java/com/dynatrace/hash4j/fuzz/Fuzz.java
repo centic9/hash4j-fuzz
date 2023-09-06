@@ -6,10 +6,6 @@ import com.dynatrace.hash4j.hashing.Hasher128;
 import com.dynatrace.hash4j.hashing.Hasher32;
 import com.dynatrace.hash4j.hashing.Hasher64;
 import com.dynatrace.hash4j.hashing.Hashing;
-import com.dynatrace.hash4j.similarity.ElementHashProvider;
-import com.dynatrace.hash4j.similarity.SimilarityHashPolicy;
-import com.dynatrace.hash4j.similarity.SimilarityHasher;
-import com.dynatrace.hash4j.similarity.SimilarityHashing;
 
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
@@ -17,10 +13,9 @@ import java.util.OptionalLong;
 
 
 /**
- * This class provides a simple target for fuzzing the hist4j package.
+ * This class provides a simple target for fuzzing the hash4j package.
  *
- * Currently the library only provides an implementation of Murmur3 which
- * is tested here.
+ * It sends the input to all the hash-algorithms implemented by hash4j
  */
 public class Fuzz {
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -137,33 +132,6 @@ public class Fuzz {
 				// expected here
 			}
 			stream.getHashBitSize();
-		}
-
-		if (input.length >= 8) {
-			long[] longs = new long[input.length / 8];
-			for (int i = 0; i < input.length / 8; i++) {
-				longs[i] = input[i * 8];
-				longs[i] = ((long) input[i * 8 + 1]) << 8;
-				longs[i] = ((long) input[i * 8 + 2]) << 16;
-				longs[i] = ((long) input[i * 8 + 3]) << 24;
-				longs[i] = ((long) input[i * 8 + 4]) << 32;
-				longs[i] = ((long) input[i * 8 + 5]) << 40;
-				longs[i] = ((long) input[i * 8 + 6]) << 48;
-				longs[i] = ((long) input[i * 8 + 7]) << 56;
-			}
-
-			SimilarityHashPolicy policy =
-					SimilarityHashing.superMinHash(1024, 1);
-			SimilarityHasher simHasher = policy.createHasher();
-			simHasher.compute(ElementHashProvider.ofValues(longs));
-
-			policy = SimilarityHashing.minHash(1024, 1);
-			simHasher = policy.createHasher();
-			simHasher.compute(ElementHashProvider.ofValues(longs));
-
-			policy = SimilarityHashing.fastSimHash(1024);
-			simHasher = policy.createHasher();
-			simHasher.compute(ElementHashProvider.ofValues(longs));
 		}
 	}
 }

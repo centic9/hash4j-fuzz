@@ -45,9 +45,19 @@ mkdir -p build/jacoco
   -runs=0 \
   corpus
 
+./jazzer \
+  --cp=build/libs/hash4j-fuzz-all.jar \
+  --instrumentation_includes=com.dynatrace.** \
+  --target_class=com.dynatrace.hash4j.fuzz.SimHashFuzz \
+  --nohooks \
+  --jvm_args="-javaagent\\:build/jacocoagent.jar=destfile=build/jacoco/corpusSimHash.exec" \
+  -rss_limit_mb=1024 \
+  -runs=0 \
+  corpusSimHash
+
 
 # Finally create the JaCoCo report
-java -jar build/jacococli.jar report build/jacoco/corpus.exec \
+java -jar build/jacococli.jar report build/jacoco/corpus.exec build/jacoco/corpusSimHash.exec \
  --classfiles build/hash4jFiles \
  --sourcefiles ../hash4j/src/main/java \
  --html build/reports/jacoco
