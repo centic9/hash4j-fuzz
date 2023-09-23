@@ -4,6 +4,7 @@ import com.code_intelligence.jazzer.api.FuzzedDataProvider;
 import com.dynatrace.hash4j.similarity.ElementHashProvider;
 import com.dynatrace.hash4j.similarity.FastSimHashVersion;
 import com.dynatrace.hash4j.similarity.MinHashVersion;
+import com.dynatrace.hash4j.similarity.SimHashVersion;
 import com.dynatrace.hash4j.similarity.SimilarityHashPolicy;
 import com.dynatrace.hash4j.similarity.SimilarityHasher;
 import com.dynatrace.hash4j.similarity.SimilarityHashing;
@@ -19,7 +20,7 @@ public class SimHashFuzz {
 		int bits = data.consumeInt(1, 64);
 
 		SimilarityHashPolicy policy;
-		int hasher = data.consumeInt(0, 5);
+		int hasher = data.consumeInt(0, 7);
 		switch (hasher) {
 			case 0:
 				policy = SimilarityHashing.superMinHash(components, bits);
@@ -41,6 +42,13 @@ public class SimHashFuzz {
 			case 5:
 				policy = SimilarityHashing.fastSimHash(components,
 						FastSimHashVersion.values()[data.consumeInt(0, FastSimHashVersion.values().length-1)]);
+				break;
+			case 6:
+				policy = SimilarityHashing.simHash(components);
+				break;
+			case 7:
+				policy = SimilarityHashing.simHash(components,
+						SimHashVersion.values()[data.consumeInt(0, SimHashVersion.values().length-1)]);
 				break;
 			default:
 				throw new IllegalStateException("Had unexpected switch-value: " + hasher);
