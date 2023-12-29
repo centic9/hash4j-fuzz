@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
 	//implementation fileTree(dir: '../hash4j/build/libs', include: ['hash4j-*.jar'])
-	implementation 'com.dynatrace.hash4j:hash4j:0.13.0'
+	implementation 'com.dynatrace.hash4j:hash4j:0.16.0'
 
 	implementation 'commons-io:commons-io:2.15.1'
 	implementation 'com.code-intelligence:jazzer-api:0.22.1'

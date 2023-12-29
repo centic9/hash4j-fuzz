@@ -39,6 +39,9 @@ public class Fuzz {
 
 		Hasher64 farmHash = Hashing.farmHashNa();
 		hash64(farmHash, input);
+
+		Hasher64 polymurHash = Hashing.polymurHash2_0(1, 2);
+		hash64(polymurHash, input);
 	}
 
 	private static void hash128(Hasher128 hasher, byte[] input) {
