@@ -22,6 +22,9 @@ for i in `find ../runtime -name hash4j-*.jar`; do
   unzip -o -q $i
 done
 
+# remove one file which causes jacoco to fail
+rm -f META-INF/versions/21/com/dynatrace/hash4j/hashing/UnsignedMultiplyUtil.class
+
 cd -
 
 
