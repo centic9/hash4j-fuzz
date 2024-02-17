@@ -1,15 +1,19 @@
 package com.dynatrace.hash4j.fuzz;
 
+import com.dynatrace.hash4j.consistent.ConsistentBucketHasher;
+import com.dynatrace.hash4j.consistent.ConsistentHashing;
 import com.dynatrace.hash4j.hashing.HashFunnel;
 import com.dynatrace.hash4j.hashing.HashStream32;
 import com.dynatrace.hash4j.hashing.Hasher128;
 import com.dynatrace.hash4j.hashing.Hasher32;
 import com.dynatrace.hash4j.hashing.Hasher64;
 import com.dynatrace.hash4j.hashing.Hashing;
+import com.dynatrace.hash4j.random.PseudoRandomGeneratorProvider;
 
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
+import java.util.Random;
 
 
 /**
@@ -18,6 +22,8 @@ import java.util.OptionalLong;
  * It sends the input to all the hash-algorithms implemented by hash4j
  */
 public class Fuzz {
+	private static final Random RND = new Random();
+
 	public static void fuzzerTestOneInput(byte[] input) {
 		Hasher32 hasher32 = Hashing.murmur3_32();
 		hash32(hasher32, input);
@@ -42,6 +48,21 @@ public class Fuzz {
 
 		Hasher64 polymurHash = Hashing.polymurHash2_0(1, 2);
 		hash64(polymurHash, input);
+
+		Hasher64 farmHashUo = Hashing.farmHashUo();
+		hash64(farmHashUo, input);
+
+		farmHashUo = Hashing.farmHashUo(RND.nextLong(), RND.nextLong());
+		hash64(farmHashUo, input);
+
+		ConsistentBucketHasher jumpHash = ConsistentHashing.jumpHash(PseudoRandomGeneratorProvider.splitMix64_V1());
+		consistentHash(jumpHash);
+
+		ConsistentBucketHasher jumpBackHash = ConsistentHashing.jumpBackHash(PseudoRandomGeneratorProvider.splitMix64_V1());
+		consistentHash(jumpBackHash);
+
+		ConsistentBucketHasher weightedSamplingHash = ConsistentHashing.improvedConsistentWeightedSampling(PseudoRandomGeneratorProvider.splitMix64_V1());
+		consistentHash(weightedSamplingHash);
 	}
 
 	private static void hash128(Hasher128 hasher, byte[] input) {
@@ -136,5 +157,9 @@ public class Fuzz {
 			}
 			stream.getHashBitSize();
 		}
+	}
+
+	private static void consistentHash(ConsistentBucketHasher hasher) {
+		hasher.getBucket(RND.nextLong(), RND.nextInt(100) + 1);
 	}
 }
