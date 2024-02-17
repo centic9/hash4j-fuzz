@@ -160,6 +160,6 @@ public class Fuzz {
 	}
 
 	private static void consistentHash(ConsistentBucketHasher hasher) {
-		hasher.getBucket(RND.nextLong(), RND.nextInt(100) + 1);
+		hasher.getBucket(RND.nextLong(), RND.nextInt(500) + 1);
 	}
 }
