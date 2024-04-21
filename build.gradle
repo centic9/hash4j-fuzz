@@ -9,6 +9,7 @@ repositories {
 }
 
 dependencies {
+	// https://mvnrepository.com/artifact/com.dynatrace.hash4j/hash4j
 	//implementation fileTree(dir: '../hash4j/build/libs', include: ['hash4j-*.jar'])
 	implementation 'com.dynatrace.hash4j:hash4j:0.17.0'
 
