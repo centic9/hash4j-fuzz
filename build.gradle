@@ -11,7 +11,7 @@ repositories {
 dependencies {
 	// https://mvnrepository.com/artifact/com.dynatrace.hash4j/hash4j
 	//implementation fileTree(dir: '../hash4j/build/libs', include: ['hash4j-*.jar'])
-	implementation 'com.dynatrace.hash4j:hash4j:0.18.0'
+	implementation 'com.dynatrace.hash4j:hash4j:0.19.0'
 
 	implementation 'commons-io:commons-io:2.18.0'
 	implementation 'com.code-intelligence:jazzer-api:0.22.1'
