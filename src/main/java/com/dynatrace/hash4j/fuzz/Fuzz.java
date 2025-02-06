@@ -31,6 +31,12 @@ public class Fuzz {
 		Hasher128 hasher128 = Hashing.murmur3_128();
 		hash128(hasher128, input);
 
+		Hasher128 xxh3_128 = Hashing.xxh3_128();
+		hash128(xxh3_128, input);
+
+		xxh3_128 = Hashing.xxh3_128(RND.nextLong());
+		hash128(xxh3_128, input);
+
 		Hasher64 komihash4_64Long = Hashing.komihash4_3();
 		hash64(komihash4_64Long, input);
 
@@ -54,6 +60,12 @@ public class Fuzz {
 
 		farmHashUo = Hashing.farmHashUo(RND.nextLong(), RND.nextLong());
 		hash64(farmHashUo, input);
+
+		Hasher64 xxh3_64Long = Hashing.xxh3_64();
+		hash64(xxh3_64Long, input);
+
+		xxh3_64Long = Hashing.xxh3_64(RND.nextLong());
+		hash64(xxh3_64Long, input);
 
 		ConsistentBucketHasher jumpHash = ConsistentHashing.jumpHash(PseudoRandomGeneratorProvider.splitMix64_V1());
 		consistentHash(jumpHash);
