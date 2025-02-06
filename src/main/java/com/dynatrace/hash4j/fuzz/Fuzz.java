@@ -79,9 +79,23 @@ public class Fuzz {
 
 	private static void hash128(Hasher128 hasher, byte[] input) {
 		hasher.hashBytesTo128Bits(input);
-		hasher.hashCharsTo128Bits(new String(input));
+
+		String str = new String(input);
+		hasher.hashCharsTo128Bits(str);
 
 		hash64(hasher, input);
+	}
+
+	private static long convertToLong(byte[] bytes, int offset) {
+		long value = 0L;
+
+		for (int i = offset; i < Math.min(bytes.length, offset + 4); i++) {
+			// Shifting previous value 8 bits to right and
+			// add it with next value
+			value = (value << 8) + (bytes[i] & 255);
+		}
+
+		return value;
 	}
 
 	private static void hash64(Hasher64 hasher, byte[] input) {
@@ -93,6 +107,12 @@ public class Fuzz {
 		hasher.hashBytesToLong(input);
 		hasher.hashBytesToLong(input);
 		hasher.hashCharsToLong(new String(input));
+
+		long l1 = convertToLong(input, 0);
+		long l2 = convertToLong(input, 4);
+		long l3 = convertToLong(input, 8);
+		hasher.hashLongLongLongToLong(l1, l2, l3);
+		hasher.hashLongLongToLong(l1, l2);
 
 		hash32(hasher, input);
 	}
@@ -108,6 +128,12 @@ public class Fuzz {
 	private static void hash(Hasher32 hasher, byte[] input) {
 		HashStream32 stream = hasher.hashStream();
 		stream.putBytes(input);
+
+		String str = new String(input);
+		stream.putCharArray(str.toCharArray());
+		stream.putChars(str.toCharArray());
+
+		stream.getHashBitSize();
 
 		HashFunnel<byte[]> hashFunnel = (bytes, hashSink) -> hashSink.putBytes(bytes);
 		stream.putNullable(input, hashFunnel);
