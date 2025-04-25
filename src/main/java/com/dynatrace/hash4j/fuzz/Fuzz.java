@@ -1,6 +1,7 @@
 package com.dynatrace.hash4j.fuzz;
 
 import com.dynatrace.hash4j.consistent.ConsistentBucketHasher;
+import com.dynatrace.hash4j.consistent.ConsistentBucketSetHasher;
 import com.dynatrace.hash4j.consistent.ConsistentHashing;
 import com.dynatrace.hash4j.hashing.HashFunnel;
 import com.dynatrace.hash4j.hashing.HashStream32;
@@ -75,6 +76,9 @@ public class Fuzz {
 
 		ConsistentBucketHasher weightedSamplingHash = ConsistentHashing.improvedConsistentWeightedSampling(PseudoRandomGeneratorProvider.splitMix64_V1());
 		consistentHash(weightedSamplingHash);
+
+		ConsistentBucketSetHasher jumpBackAnchorHasher = ConsistentHashing.jumpBackAnchorHash(PseudoRandomGeneratorProvider.splitMix64_V1());
+		consistentHash(jumpBackAnchorHasher);
 	}
 
 	private static void hash128(Hasher128 hasher, byte[] input) {
@@ -199,5 +203,21 @@ public class Fuzz {
 
 	private static void consistentHash(ConsistentBucketHasher hasher) {
 		hasher.getBucket(RND.nextLong(), RND.nextInt(500) + 1);
+	}
+
+	private static void consistentHash(ConsistentBucketSetHasher hasher) {
+		hasher.addBucket();
+
+		hasher.getBucket(RND.nextLong());
+		hasher.getNumBuckets();
+		hasher.getBuckets();
+		hasher.getState();
+
+		hasher.addBucket();
+
+		hasher.getBucket(RND.nextLong());
+		hasher.getNumBuckets();
+		hasher.getBuckets();
+		hasher.getState();
 	}
 }
